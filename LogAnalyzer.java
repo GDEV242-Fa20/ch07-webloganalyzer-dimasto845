@@ -14,14 +14,77 @@ public class LogAnalyzer
     /**
      * Create an object to analyze hourly web accesses.
      */
-    public LogAnalyzer()
+    public LogAnalyzer ()
     { 
         // Create the array object to hold the hourly
         // access counts.
         hourCounts = new int[24];
         // Create the reader to obtain the data.
-        reader = new LogfileReader("demo.log");
+        reader = new LogfileReader("demo.Log");
     }
+    
+    public int numberOfAccesses() {
+     
+        int total = 0;
+        for(int hour = 0; hour < hourCounts.length; hour++) {
+        total += hourCounts[hour];
+        
+    }
+    return total;
+    }
+    
+    public static void main(String [] args)
+    {
+     LogAnalyzer analyze = new LogAnalyzer();
+     analyze.analyzeHourlyData();
+     int numberOfAccesses = analyze.numberOfAccesses();
+     System.out.println("Number of Accesses:" + numberOfAccesses);   
+    }
+    
+    public int busiestHour()
+    {
+        int maxHour =0;
+        for(int hour =1; hour<hourCounts.length; hour++){
+     
+        if (hourCounts[hour] > hourCounts[maxHour]){
+            {
+                maxHour=hour;
+            }
+        }
+        
+    }
+    return maxHour;
+}
+
+    int quietestHour(int[] hourCounts)
+    {
+     int quietest = hourCounts[0];
+     for(int i=0; i< hourCounts.length; i++)
+     
+     {
+         if(hourCounts[i] > 0 &&
+         hourCounts[i] > quietest)
+         quietest = hourCounts[i];
+        }
+        return quietest;
+    }
+    
+    int busiestHour(int[] hourCounts)
+    {
+     int busiestOne =0;
+     int busiestTwo =0;
+     for(int n:hourCounts){
+        if(busiestOne < n){
+         busiestTwo = busiestOne;
+         busiestOne =n;
+        }
+        else if(busiestTwo < n){
+            busiestTwo =n;
+            
+        }
+        
+    }return busiestOne;
+}
 
     /**
      * Analyze the hourly access data from the log file.
